@@ -7,7 +7,7 @@
 " }}}
 "
 " License: {{{
-"   Copyright (c) 2004 - 2009, Eric Van Dewoestine
+"   Copyright (c) 2004 - 2010, Eric Van Dewoestine
 "   All rights reserved.
 "
 "   Redistribution and use of this software in source and binary forms, with
@@ -595,18 +595,16 @@ endfunction
 " s:Syntax() {{{
 function! s:Syntax ()
   set ft=dailylog
-  hi link DailyLogTime Constant
-  hi link DailyLogDuration Constant
-  hi link DailyLogDelimiter Constant
-  hi link DailyLogField Keyword
+  hi link DailyLogTime Number
+  hi link DailyLogDuration Statement
+  hi link DailyLogDelimiter Comment
   hi link DailyLogLink Special
   " match time in the form of 08:12
   exec "syntax match DailyLogTime /" . g:dailylog_time_pattern . "/"
   " match durations in the form of 1hrs. 16min. (1.266hrs.)
   exec "syntax match DailyLogDuration /" . g:dailylog_duration_pattern . "/"
   exec "syntax match DailyLogDelimiter /" . g:dailylog_delimiter_pattern . "/"
-  exec "syntax match DailyLogLink /|.\{-}|/"
-  syntax match DailyLogLink /#[0-9]\+/
+  syntax match DailyLogLink /\(#[0-9]\+\||.\{-}|\)/
 endfunction
 " }}}
 
