@@ -9,7 +9,7 @@
 " }}}
 "
 " License: {{{
-"   Copyright (c) 2009, Eric Van Dewoestine
+"   Copyright (c) 2009 - 2010, Eric Van Dewoestine
 "   All rights reserved.
 "
 "   Redistribution and use of this software in source and binary forms, with
@@ -96,14 +96,14 @@ function! s:UpdateCopyright()
 
     echohl WarningMsg
     try
-      redraw
-      echo printf(
-        \ "Copyright year for file '%s' appears to be out of date.\n",
-        \ expand('%:t'))
-      let response = input("Would you like to update it? (y/n): ")
-      while response != '' && response !~ '^\c\s*\(y\(es\)\?\|no\?\|\)\s*$'
-        let response = input("You must choose either y or n. (Ctrl-C to cancel): ")
-      endwhile
+      try
+        " use unsilent to force prompt messages to show up even if the writing
+        " of the file was issued with 'silent'.
+        unsilent let response =  s:Prompt()
+      catch /E492/
+        " handle case where unsilent is not available
+        let response =  s:Prompt()
+      endtry
     finally
       echohl None
     endtry
@@ -121,6 +121,19 @@ function! s:UpdateCopyright()
     call setpos('.', pos)
     let b:copyright_checked = 1
   endtry
+endfunction " }}}
+
+" s:Prompt() {{{
+function! s:Prompt()
+  redraw
+  echo printf(
+    \ "Copyright year for file '%s' appears to be out of date.\n",
+    \ expand('%:t'))
+  let response = input("Would you like to update it? (y/n): ")
+  while response != '' && response !~ '^\c\s*\(y\(es\)\?\|no\?\|\)\s*$'
+    let response = input("You must choose either y or n. (Ctrl-C to cancel): ")
+  endwhile
+  return response
 endfunction " }}}
 
 " vim:ft=vim:fdm=marker
