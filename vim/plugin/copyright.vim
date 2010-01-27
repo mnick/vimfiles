@@ -45,6 +45,10 @@
 
 " Global Variables {{{
 
+if !exists('g:CopyrightEnabled')
+  let g:CopyrightEnabled = 0
+endif
+
 if !exists('g:CopyrightPattern')
   " group 1 must be the text leading up to the most recent year
   " group 2 must be the most recent year to check against the current year.
@@ -60,6 +64,10 @@ if !exists('g:CopyrightMaxLines')
 endif
 
 " }}}
+
+if !g:CopyrightEnabled
+  finish
+endif
 
 " Script Variables {{{
   let s:year = exists('*strftime') ? strftime('%Y') : '2009'

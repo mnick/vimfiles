@@ -15,7 +15,8 @@ vim plugins
 - `screen`_ - simulate a split shell in vim using gnu screen or tmux
 - ack - run ack and load the results in vim's quickfix
 - copyright - check for out of date copyright years on file save and prompt to
-  update the years if necessary
+  update the years if necessary (add ``let g:CopyrightEnabled = 1`` to your
+  vimrc to enable)
 - dailylog - keep track of and report time spent working on tasks
 - notebook - manage notes using vim's help files syntax and tags
 - scratch - open a filetype scratch buffer (auto saves the previous contents in
